@@ -41,9 +41,6 @@ buck-out/
 *.keystore
 !debug.keystore
 
-# Bob
-lib/
-
 # CocoaPods
 Pods/
 
