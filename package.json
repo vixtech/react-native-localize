@@ -19,27 +19,6 @@
     "localization",
     "l20n"
   ],
-  "scripts": {
-    "prepare": "bob build",
-    "format": "prettier '**/*.{js,json,md,ts,tsx}' --write",
-    "typecheck": "flow ."
-  },
-  "@react-native-community/bob": {
-    "source": "src",
-    "output": "lib",
-    "targets": [
-      [
-        "commonjs",
-        {
-          "flow": true
-        }
-      ],
-      "module"
-    ]
-  },
-  "lint-staged": {
-    "**/*.{js,json,md,ts,tsx}": "prettier --write"
-  },
   "peerDependencies": {
     "react-native": ">=0.56.0"
   },
