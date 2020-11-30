@@ -12,6 +12,7 @@ import android.provider.Settings;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.view.View;
+import android.util.Log;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.LifecycleEventListener;
@@ -40,6 +41,8 @@ import javax.annotation.Nullable;
 public class RNLocalizeModule extends ReactContextBaseJavaModule implements LifecycleEventListener {
 
   public static final String MODULE_NAME = "RNLocalize";
+
+  public static final String TAG = "RNLocalize";
 
   private final List<String> USES_FAHRENHEIT =
       Arrays.asList("BS", "BZ", "KY", "PR", "PW", "US");
@@ -114,10 +117,19 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
   public void onHostDestroy() {}
 
   private void emitLocalizationDidChange() {
-    if (getReactApplicationContext().hasActiveCatalystInstance()) {
-      getReactApplicationContext()
-          .getJSModule(RCTDeviceEventEmitter.class)
-          .emit("localizationDidChange", getExportedConstants());
+    Log.d(TAG, "emitLocalizationDidChange called");
+
+    try {
+      if (getReactApplicationContext().hasActiveCatalystInstance()) {
+        Log.d(TAG, "emitLocalizationDidChange start");
+        getReactApplicationContext()
+            .getJSModule(RCTDeviceEventEmitter.class)
+            .emit("localizationDidChange", getExportedConstants());
+        Log.d(TAG, "emitLocalizationDidChange success");
+      }
+    } catch (Exception e) {
+      Log.d(TAG, "emitLocalizationDidChange disabled in case of Exception (Samsung J1 Error)");
+      // tested in Samsung J2 and it will restart the app anyway
     }
   }
 
